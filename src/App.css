@@ -1,0 +1,13 @@
+.roboto-font {
+  font-family: "Roboto", sans-serif;
+}
+.footer-container {
+  background-image: url("/src/assets/university\ pic.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.footer-container h6,
+.footer-container a {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
