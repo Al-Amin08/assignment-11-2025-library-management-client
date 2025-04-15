@@ -8,7 +8,7 @@ import img5 from "../../assets/Black_and_White_Classic_University_School_Logo-re
 
 const Banner = () => {
   return (
-    <div className="mt-17 bg-[#1f1c15] ">
+    <div className="mt-15 bg-[#1f1c15] ">
       <div className="mx-auto w-10/12 pt-20  text-white ">
         <div className="flex flex-col lg:flex-row-reverse gap-10 px-20">
           {/* Image Section */}

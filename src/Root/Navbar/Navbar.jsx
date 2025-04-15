@@ -10,19 +10,19 @@ const Navbar = () => {
         <NavLink to={"/"}>Home</NavLink>
       </li>
       <li>
-        <NavLink to={"/allSportsEquipment"}>All Sports Equipment</NavLink>
+        <NavLink to={"/allSportsEquipment"}>All Books</NavLink>
       </li>
       <li>
-        <NavLink to={"/addEquipment"}>Add Equipment</NavLink>
+        <NavLink to={"/addEquipment"}>Add Books</NavLink>
       </li>
       <li>
-        {/* <NavLink to={`/myEquipments/${user?.email}`}>My Equipment</NavLink> */}
+        <NavLink to={`/myEquipments/${user?.email}`}>Borrowed Books</NavLink>
       </li>
     </>
   );
   return (
     <div>
-      <div className="w-full  shadow-md fixed top-0 left-0 right-0 z-10 glass-effect">
+      <div className="w-full  shadow-md fixed top-0 left-0 right-0 z-10 glass-effect bg-[#18150e] text-white">
         {/* <Tooltip anchorSelect=".my-anchor-element" place="bottom">
           {user?.displayName}
         </Tooltip> */}
@@ -70,12 +70,12 @@ const Navbar = () => {
                 </li>
               </ul>
             </div>
-            <a className="btn btn-ghost text-xl font-bold">EquiSports</a>
+            <a className="btn btn-ghost text-xl font-bold">ReadVault</a>
           </div>
           <div className="navbar-center hidden lg:flex">
             <ul className="menu menu-horizontal px-1">{links}</ul>
           </div>
-          {/* <div className="navbar-end">
+          <div className="navbar-end">
             <div className="lg:flex gap-3 mr-6 items-center hidden">
               {user && (
                 <>
@@ -109,7 +109,7 @@ const Navbar = () => {
                 </Link>
               </>
             )}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
