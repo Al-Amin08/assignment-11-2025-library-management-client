@@ -6,7 +6,7 @@ import { AuthContext } from "../../Provider/AuthProvider";
 const BookDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   const [book, setBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -18,6 +18,12 @@ const BookDetails = () => {
   //       .then((res) => setBook(res.data));
   //   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/books/${id}`)
+      .then((res) => setBook(res.data));
+  }, []);
+
   const handleBorrow = async () => {
     const borrowInfo = {
       bookId: book.bookId,
@@ -25,7 +31,7 @@ const BookDetails = () => {
       email: user.email,
       returnDate,
     };
-
+    console.log(borrowInfo);
     await axios
       .post("http://localhost:5000/borrow", borrowInfo)
       .then((res) => console.log(res));
@@ -35,13 +41,8 @@ const BookDetails = () => {
 
   //   if (!book) return <div>Loading...</div>;
 
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/books/${id}`)
-      .then((res) => setBook(res.data));
-  }, []);
-
   //   console.log(book);
+  // const disableButton=
 
   return (
     <div className="p-8 max-w-4xl mx-auto my-32">

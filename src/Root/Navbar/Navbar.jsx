@@ -16,7 +16,7 @@ const Navbar = () => {
         <NavLink to={"/addEquipment"}>Add Books</NavLink>
       </li>
       <li>
-        <NavLink to={`/myEquipments/${user?.email}`}>Borrowed Books</NavLink>
+        <NavLink to={`/borrowedBook`}>Borrowed Books</NavLink>
       </li>
     </>
   );
