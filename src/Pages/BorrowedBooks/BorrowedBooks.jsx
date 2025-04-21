@@ -13,11 +13,17 @@ const BorrowedBooks = () => {
       .get(`http://localhost:5000/borrowed-books/${user?.email}`)
       .then((res) => setBorrowedBooksData(res.data));
   }, [user?.email]);
+
+  const handleReturn = (_id, bookId) => {
+    axios
+      .post(`http://localhost:5000/return-books/${_id}`, { bookId })
+      .then((res) => console.log(res.data));
+  };
   return (
     <div className="max-w-6xl mx-auto">
       <div className="my-32  grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {borrowedBooksData.map((book) => (
-          <div key={book.bookId} className="card bg-base-200 shadow-lg">
+          <div key={book._id} className="card bg-base-200 shadow-lg">
             <figure>
               <img
                 src={book.image}
@@ -31,13 +37,14 @@ const BorrowedBooks = () => {
               <p>Category: {book.category}</p>
               <p>Borrowed Date: {book.borrowedAt}</p>
               <p>Return Date: {book.returnDate}</p>
+
               <div className="card-actions justify-end mt-4">
-                <Link
-                  to={`/category/bookDetails/${book.bookId}`}
+                <button
+                  onClick={() => handleReturn(book._id, book.bookId)}
                   className="btn btn-primary btn-sm"
                 >
                   Return
-                </Link>
+                </button>
               </div>
             </div>
           </div>
