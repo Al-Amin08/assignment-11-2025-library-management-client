@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BookTable = ({ filteredBooks }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   console.log(filteredBooks);
 
   return (
@@ -36,7 +36,7 @@ const BookTable = ({ filteredBooks }) => {
                 <Link
                   // onClick={() => navigate()}
                   className=" text-blue-600 font-bold hover:cursor-pointer "
-                  to={`/update-book/${book._id}`}
+                  to={`/update-book/${book.bookId}`}
                 >
                   Update
                 </Link>

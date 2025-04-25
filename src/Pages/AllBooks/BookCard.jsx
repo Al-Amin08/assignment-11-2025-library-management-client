@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const BookCard = ({ book }) => {
   // const navigate = useNavigate();
@@ -21,7 +21,7 @@ const BookCard = ({ book }) => {
           <Link
             className="btn mt-2 text-blue-600 text-start"
             // onClick={() => navigate(`/update-book/${book._id}`)}
-            to={`/update-book/${book._id}`}
+            to={`/update-book/${book.bookId}`}
           >
             Update
           </Link>
