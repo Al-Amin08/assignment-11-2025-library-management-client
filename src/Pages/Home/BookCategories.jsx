@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
 // const categories = [
 //   {
@@ -30,9 +31,10 @@ import { Link } from "react-router-dom";
 
 const BookCategories = () => {
   const [categories, setCategories] = useState([]);
-  axios
-    .get("http://localhost:5000/categories")
-    .then((res) => setCategories(res.data));
+
+  const axiosSecure = useAxiosSecure();
+
+  axiosSecure.get("/categories").then((res) => setCategories(res.data));
 
   return (
     <div className="py-10 px-4 bg-base-200">
