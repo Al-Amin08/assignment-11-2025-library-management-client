@@ -1,23 +1,39 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+
 import BookCard from "./BookCard";
 import BookTable from "./BookTable";
+import toast, { Toaster } from "react-hot-toast";
+import Loader from "../../Loader/Loader";
+import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
 const AllBooks = () => {
   const [books, setBooks] = useState([]);
   const [showAvailable, setShowAvailable] = useState(false);
   const [viewType, setViewType] = useState("card");
+  const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/books").then((res) => setBooks(res.data));
+    axiosSecure.get("/books").then((res) => {
+      toast.success("Successfully loaded all the book!");
+      setBooks(res.data);
+      setLoading(false);
+    });
   }, []);
 
   const filteredBooks = showAvailable
     ? books.filter((book) => book.quantity > 0)
     : books;
+  useEffect(() => {
+    document.title = "All Book | ReadVault";
+  }, []);
 
+  if (loading) {
+    return <Loader></Loader>;
+  }
   return (
     <div className="my-32 px-4">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="flex justify-between items-center mb-4">
         <button
           className="bg-green-500 text-white px-4 py-2 rounded"

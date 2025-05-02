@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const BookTable = ({ filteredBooks }) => {
   // const navigate = useNavigate();
   console.log(filteredBooks);
-
+  useEffect(() => {
+    document.title = "Book as Table | ReadVault";
+  }, []);
   return (
     <div className="w-10/12 mx-auto">
       <table className=" table table-zebra">
@@ -35,7 +37,7 @@ const BookTable = ({ filteredBooks }) => {
               <td>
                 <Link
                   // onClick={() => navigate()}
-                  className=" text-blue-600 font-bold hover:cursor-pointer "
+                  className=" bg-[#F4C724] text-[#333333] font-bold hover:cursor-pointer px-3 py-1 rounded"
                   to={`/update-book/${book.bookId}`}
                 >
                   Update

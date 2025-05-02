@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { signInWithPopup, updateProfile } from "firebase/auth";
@@ -27,7 +27,7 @@ const Register = () => {
     }
 
     createUser(email, password)
-      .then((res) => {
+      .then(() => {
         const profile = {
           displayName: name,
           photoURL: photo,
@@ -52,6 +52,10 @@ const Register = () => {
       })
       .catch((err) => toast.error(err));
   };
+
+  useEffect(() => {
+    document.title = "Register | CareerGlow";
+  }, []);
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />

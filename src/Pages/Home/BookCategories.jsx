@@ -1,41 +1,34 @@
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
-// const categories = [
-//   {
-//     id: 1,
-//     name: "Fiction",
-//     image: "https://img.freepik.com/free-photo/books-library_1150-17447.jpg",
-//   },
-//   {
-//     id: 2,
-//     name: "Science & Nature",
-//     image:
-//       "https://img.freepik.com/free-photo/science-laboratory_53876-32166.jpg",
-//   },
-//   {
-//     id: 3,
-//     name: "History",
-//     image:
-//       "https://img.freepik.com/free-photo/composed-book-school-supplies_23-2147654593.jpg",
-//   },
-//   {
-//     id: 4,
-//     name: "Business",
-//     image:
-//       "https://img.freepik.com/free-vector/sketch-business-icons_1284-44663.jpg",
-//   },
-// ];
-
 const BookCategories = () => {
   const [categories, setCategories] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
 
-  axiosSecure.get("/categories").then((res) => setCategories(res.data));
-
+  useEffect(() => {
+    axiosSecure
+      .get("/categories")
+      .then((res) => {
+        setCategories(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching categories:", err);
+        setLoading(false);
+      });
+  }, []);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center gap-7 my-40">
+        <div className="skeleton h-52 w-52"></div>
+        <div className="skeleton h-52 w-52"></div>
+        <div className="skeleton h-52 w-52"></div>
+        <div className="skeleton h-52 w-52"></div>
+      </div>
+    );
+  }
   return (
     <div className="py-10 px-4 bg-base-200">
       <div className="max-w-6xl mx-auto text-center mb-8">

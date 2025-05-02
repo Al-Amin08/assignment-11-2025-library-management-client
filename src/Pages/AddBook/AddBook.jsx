@@ -1,7 +1,9 @@
-import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
 const AddBook = () => {
+  const axiosSecure = useAxiosSecure();
   const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -13,12 +15,18 @@ const AddBook = () => {
     // const image = formData.get("image");
     console.log(newBook);
 
-    axios
-      .post("http://localhost:5000/addBooks", newBook)
-      .then((res) => console.log(res));
+    axiosSecure.post("/addBooks", newBook).then((res) => {
+      console.log(res);
+      toast.success("Successfully added book.");
+      formData.reset();
+    });
   };
+  useEffect(() => {
+    document.title = "Add Book | ReadVault";
+  }, []);
   return (
     <div className="my-32">
+      <Toaster position="top-center" reverseOrder={false} />
       <form
         onSubmit={handleSubmit}
         className="max-w-xl mx-auto p-6 bg-white shadow-md rounded"
@@ -27,7 +35,7 @@ const AddBook = () => {
 
         <legend className="fieldset-legend">Book Title</legend>
         <input
-          name="title"
+          name="bookName"
           type="text"
           placeholder="Book Title"
           // onChange={handleChange}

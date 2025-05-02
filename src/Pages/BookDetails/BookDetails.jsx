@@ -2,26 +2,27 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
+import toast, { Toaster } from "react-hot-toast";
+import Loader from "../../Loader/Loader";
+import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
 const BookDetails = () => {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(true);
+  const axiosSecure = useAxiosSecure();
   // console.log(user);
 
   const [book, setBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [returnDate, setReturnDate] = useState("");
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`http://localhost:5000/books/${id}`)
-  //       .then((res) => setBook(res.data));
-  //   }, [id]);
-
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/books/${id}`)
-      .then((res) => setBook(res.data));
+    axiosSecure(`/books/${id}`).then((res) => {
+      setBook(res.data);
+      toast.success("Successfully shown  book!");
+      setLoading(false);
+    });
   }, []);
 
   const handleBorrow = async () => {
@@ -32,9 +33,10 @@ const BookDetails = () => {
       returnDate,
     };
     console.log(borrowInfo);
-    await axios
-      .post("http://localhost:5000/borrow", borrowInfo)
-      .then((res) => console.log(res));
+    await axios.post("http://localhost:5000/borrow", borrowInfo).then((res) => {
+      console.log(res);
+      toast.success("Successfully borrowed the book!");
+    });
     setBook((prev) => ({ ...prev, quantity: prev.quantity - 1 }));
     setShowModal(false);
   };
@@ -44,8 +46,16 @@ const BookDetails = () => {
   //   console.log(book);
   // const disableButton=
 
+  useEffect(() => {
+    document.title = "Details | ReadVault";
+  }, []);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
   return (
     <div className="p-8 max-w-4xl mx-auto my-32">
+      <Toaster position="top-center" reverseOrder={false} />
       <img
         src={book?.image}
         alt={book?.bookName}
@@ -64,7 +74,7 @@ const BookDetails = () => {
       <button
         className=" bg-blue-600 text-white px-4 py-2 mt-4 rounded disabled:opacity-50 transition hover:scale-105"
         onClick={() => setShowModal(true)}
-        // disabled={book?.quantity <= 0}
+        disabled={book?.quantity <= 0}
       >
         Borrow
       </button>

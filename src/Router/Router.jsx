@@ -9,11 +9,14 @@ import BorrowedBooks from "../Pages/BorrowedBooks/BorrowedBooks";
 import AddBook from "../Pages/AddBook/AddBook";
 import AllBooks from "../Pages/AllBooks/AllBooks";
 import UpdateBook from "../Pages/UpdateBook/UpdateBook";
+import ErrorPage from "../ErrorPage/ErrorPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -37,23 +40,43 @@ export const router = createBrowserRouter([
       },
       {
         path: "/category/bookDetails/:id",
-        element: <BookDetails></BookDetails>,
+        element: (
+          <PrivateRoute>
+            <BookDetails></BookDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/borrowedBook",
-        element: <BorrowedBooks></BorrowedBooks>,
+        element: (
+          <PrivateRoute>
+            <BorrowedBooks></BorrowedBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/addBooks",
-        element: <AddBook></AddBook>,
+        element: (
+          <PrivateRoute>
+            <AddBook></AddBook>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/allBooks",
-        element: <AllBooks></AllBooks>,
+        element: (
+          <PrivateRoute>
+            <AllBooks></AllBooks>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/update-book/:id",
-        element: <UpdateBook></UpdateBook>,
+        element: (
+          <PrivateRoute>
+            <UpdateBook></UpdateBook>
+          </PrivateRoute>
+        ),
       },
     ],
   },

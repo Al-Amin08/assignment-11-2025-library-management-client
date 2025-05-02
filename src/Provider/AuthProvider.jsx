@@ -48,6 +48,10 @@ const AuthProvider = ({ children }) => {
           .then((res) => {
             console.log("login token", res.data);
             setLoading(false);
+          })
+          .catch((err) => {
+            console.error("JWT request error:", err);
+            setLoading(false); // Ensure loading stops even on failure
           });
       } else {
         axios
@@ -61,6 +65,10 @@ const AuthProvider = ({ children }) => {
           .then((res) => {
             console.log("http://localhost:5000/logout", res.data);
             setLoading(false);
+          })
+          .catch((err) => {
+            console.error("JWT request error:", err);
+            setLoading(false); // Ensure loading stops even on failure
           });
       }
     });

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
+import useAxiosSecure from "../../AxiosInterceptor/useAxiosSecure";
 
 const UpdateBook = () => {
   const { id } = useParams();
   const [book, setBook] = useState({});
   const navigate = useNavigate();
+  const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/books/${id}`)
-      .then((res) => setBook(res.data));
+    axiosSecure.get(`/books/${id}`).then((res) => setBook(res.data));
   }, [id]);
 
   const handleUpdate = (e) => {
@@ -23,10 +24,14 @@ const UpdateBook = () => {
       image: e.target.image.value, // image can be handled with a file input and upload if needed
     };
     axios.put(`http://localhost:5000/books/${id}`, updated).then((res) => {
-      // navigate("/allBooks");
+      navigate("/allBooks");
+      toast.success("Successfully Updated the book Info!");
       console.log(res);
     });
   };
+  useEffect(() => {
+    document.title = "Update | ReadVault";
+  }, []);
 
   return (
     <form
