@@ -13,10 +13,8 @@ const AddBook = () => {
     newBook.rating = parseFloat(newBook.rating);
     newBook.image = formData.get("image");
     // const image = formData.get("image");
-    console.log(newBook);
 
     axiosSecure.post("/addBooks", newBook).then((res) => {
-      console.log(res);
       toast.success("Successfully added book.");
       formData.reset();
     });

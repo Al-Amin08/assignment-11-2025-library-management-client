@@ -15,7 +15,7 @@ const BookCategories = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching categories:", err);
+        // .error("Error fetching categories:", err);
         setLoading(false);
       });
   }, []);

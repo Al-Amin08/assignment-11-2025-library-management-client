@@ -38,36 +38,34 @@ const AuthProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
 
-      console.log("state captured", currentUser?.email);
-
       if (currentUser?.email) {
         const user = { email: currentUser.email };
 
         axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://assignment-11-server-2025.vercel.app/jwt", user, {
+            withCredentials: true,
+          })
           .then((res) => {
-            console.log("login token", res.data);
             setLoading(false);
           })
           .catch((err) => {
-            console.error("JWT request error:", err);
+            // .error("JWT request error:", err);
             setLoading(false); // Ensure loading stops even on failure
           });
       } else {
         axios
           .post(
-            "/logout",
+            "https://assignment-11-server-2025.vercel.app/logout",
             {},
             {
               withCredentials: true,
             }
           )
           .then((res) => {
-            console.log("http://localhost:5000/logout", res.data);
             setLoading(false);
           })
           .catch((err) => {
-            console.error("JWT request error:", err);
+            // .error("JWT request error:", err);
             setLoading(false); // Ensure loading stops even on failure
           });
       }

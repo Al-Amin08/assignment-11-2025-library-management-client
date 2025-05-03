@@ -11,14 +11,13 @@ const BookDetails = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
   const axiosSecure = useAxiosSecure();
-  // console.log(user);
 
   const [book, setBook] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [returnDate, setReturnDate] = useState("");
 
   useEffect(() => {
-    axiosSecure(`/books/${id}`).then((res) => {
+    axiosSecure.get(`/books/${id}`).then((res) => {
       setBook(res.data);
       toast.success("Successfully shown  book!");
       setLoading(false);
@@ -27,23 +26,24 @@ const BookDetails = () => {
 
   const handleBorrow = async () => {
     const borrowInfo = {
-      bookId: book.bookId,
+      bookId: book._id,
       userName: user.displayName,
       email: user.email,
       returnDate,
     };
-    console.log(borrowInfo);
-    await axios.post("http://localhost:5000/borrow", borrowInfo).then((res) => {
-      console.log(res);
-      toast.success("Successfully borrowed the book!");
-    });
+
+    await axios
+      .post("https://assignment-11-server-2025.vercel.app/borrow", borrowInfo)
+      .then(() => {
+        toast.success("Successfully borrowed the book!");
+      });
     setBook((prev) => ({ ...prev, quantity: prev.quantity - 1 }));
     setShowModal(false);
   };
 
   //   if (!book) return <div>Loading...</div>;
 
-  //   console.log(book);
+  //   .log(book);
   // const disableButton=
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { Link, useLoaderData, useParams } from "react-router-dom";
 const CategoryBooks = () => {
   const loadedData = useLoaderData();
   const { categoryName } = useParams();
-  console.log(categoryName);
+
   return (
     <div className="mt-20 mb-20">
       <div className="py-10 px-4 bg-base-100 min-h-screen">
@@ -42,7 +42,7 @@ const CategoryBooks = () => {
                     </div>
                     <div className="card-actions justify-end mt-4">
                       <Link
-                        to={`/category/bookDetails/${book.bookId}`}
+                        to={`/category/bookDetails/${book._id}`}
                         className="btn btn-primary btn-sm"
                       >
                         Details

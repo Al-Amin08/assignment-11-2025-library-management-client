@@ -24,7 +24,7 @@ const BookCard = ({ book }) => {
           <Link
             className="btn mt-2 bg-[#F4C724] text-[#333333] text-start"
             // onClick={() => navigate(`/update-book/${book._id}`)}
-            to={`/update-book/${book.bookId}`}
+            to={`/update-book/${book._id}`}
           >
             Update
           </Link>

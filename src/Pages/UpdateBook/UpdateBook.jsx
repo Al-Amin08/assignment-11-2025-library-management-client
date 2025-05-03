@@ -17,17 +17,24 @@ const UpdateBook = () => {
   const handleUpdate = (e) => {
     e.preventDefault();
     const updated = {
-      title: e.target.title.value,
+      bookName: e.target.title.value,
       author: e.target.author.value,
       category: e.target.category.value,
       rating: parseFloat(e.target.rating.value),
-      image: e.target.image.value, // image can be handled with a file input and upload if needed
+      image: e.target.image.value,
     };
-    axios.put(`http://localhost:5000/books/${id}`, updated).then((res) => {
-      navigate("/allBooks");
-      toast.success("Successfully Updated the book Info!");
-      console.log(res);
-    });
+    axios
+      .patch(
+        `https://assignment-11-server-2025.vercel.app/books/${id}`,
+        updated
+      )
+      .then(() => {
+        navigate("/allBooks");
+        toast.success("Successfully Updated the book Info!");
+      })
+      .catch((err) => {
+        toast.error("Failed to update the book!", err);
+      });
   };
   useEffect(() => {
     document.title = "Update | ReadVault";
@@ -71,7 +78,7 @@ const UpdateBook = () => {
         className="w-full mb-2 p-2 border"
         required
       >
-        <option value="Novel">Novel</option>
+        <option value="Mystery">Mystery</option>
         <option value="Thriller">Thriller</option>
         <option value="History">History</option>
         <option value="Drama">Drama</option>

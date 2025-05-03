@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BookTable = ({ filteredBooks }) => {
   // const navigate = useNavigate();
-  console.log(filteredBooks);
+
   useEffect(() => {
     document.title = "Book as Table | ReadVault";
   }, []);
@@ -38,7 +38,7 @@ const BookTable = ({ filteredBooks }) => {
                 <Link
                   // onClick={() => navigate()}
                   className=" bg-[#F4C724] text-[#333333] font-bold hover:cursor-pointer px-3 py-1 rounded"
-                  to={`/update-book/${book.bookId}`}
+                  to={`/update-book/${book._id}`}
                 >
                   Update
                 </Link>

@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
         element: <CategoryBooks></CategoryBooks>,
         loader: ({ params }) =>
           fetch(
-            `http://localhost:5000/categoryWiseBooks/${params.categoryName}`
+            `https://assignment-11-server-2025.vercel.app/categoryWiseBooks/${params.categoryName}`
           ),
       },
       {

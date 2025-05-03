@@ -10,15 +10,18 @@ const BorrowedBooks = () => {
   const [borrowedBooksData, setBorrowedBooksData] = useState([]);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(true);
-  console.log(user?.email);
+
   useEffect(() => {
     document.title = "BorrowedBooks | ReadVault";
   });
   useEffect(() => {
     axios
-      .get(`http://localhost:5000/borrowed-books/${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://assignment-11-server-2025.vercel.app/borrowed-books/${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
         setBorrowedBooksData(res.data);
         setLoading(false);
@@ -29,9 +32,11 @@ const BorrowedBooks = () => {
   }
   const handleReturn = (_id, bookId) => {
     axios
-      .post(`http://localhost:5000/return-books/${_id}`, { bookId })
-      .then((res) => {
-        console.log(res.data);
+      .post(
+        `https://assignment-11-server-2025.vercel.app/return-books/${_id}`,
+        { bookId, _id }
+      )
+      .then(() => {
         setBorrowedBooksData((prev) => prev.filter((book) => book._id !== _id));
         toast.success("Successfully return the book!");
       });
